@@ -1,0 +1,222 @@
+<div class="Confirmation">
+  <div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8 offset-2">
+          <div class="print-button text-center">
+            <button class="button button-icon button-default my-3 button-print text-center" (click)="downloadPDF()">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" />
+              </svg>
+              <span class="px-3">Download Invoice </span>
+            </button>
+          </div>
+          <div class="invoice">
+            <div id="content">
+              <div class="header mb-4 bg-transparent">
+                <div class="container">
+                  <div class="logo d-block">
+                    <!-- <img src="/assets/images/welcome/Group 1.svg" alt="" /> -->
+                    <p class="text-dark text-center">
+                      61st Annual ISNA Convention Bazaar<br />
+                      Hilton Anatole Dallas, TX
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="payment-section px-0">
+                <div class="text-left">
+                  <!-- <img src="/assets/images/Arrow.svg" alt="" />
+                  <h1>Payment Successful</h1> -->
+                  <p>
+                    Assalamu Alaikum,
+                    <br><br>
+                    Thank you for your booth registration for the 61st Annual ISNA Convention Bazaar which will held
+                    at the Hilton Anatole Hotel, 2201 N Stemmons Fwy, Dallas, TX 75207 in Trinity Hall 1.
+                    <br>
+                    <br>
+                    <small><strong>Transaction ID:</strong> {{ paymentDetails?.referenceNo }}</small>
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-light p-4">
+                <div class="contact-section">
+                  <div class="">
+                    <h4 class="card-title fs-5">Your Details</h4>
+                    <div class="br-detail-box">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="list-info">
+                            <ng-container *ngIf="contactDetails">
+                              <li>
+                                <span class="lbl">Business Name</span>
+                                <span class="value">{{ contactDetails.companyName }}</span>
+                              </li>
+                              <li>
+                                <span class="lbl">Business Type</span>
+                                <span class="value">{{ contactDetails.businessType }}</span>
+                              </li>
+                              <li>
+                                <span class="lbl">Your Name</span>
+                                <span class="value">{{
+                                  contactDetails.firstName + " " + contactDetails.lastName
+                                  }}</span>
+                              </li>
+                              <li>
+                                <span class="lbl">Email</span>
+                                <span class="value">{{ contactDetails.email }}</span>
+                              </li>
+                              <li>
+                                <span class="lbl">Address</span>
+                                <span class="value">
+                                  {{ contactDetails.address }}<br>
+                                  {{ contactDetails.city }}<br>
+                                  {{ contactDetails.state }}<br>
+                                </span>
+                              </li>
+                              <li>
+                                <span class="lbl">Phone</span>
+                                <span class="value">
+                                  {{ contactDetails.phoneHome }}<br>
+                                  {{ contactDetails.phoneOffice }}
+                                </span>
+                              </li>
+                            </ng-container>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="Booth-Selection">
+                  <h4 class="card-title mt-4 pt-3">Booths Details</h4>
+                  <div class="br-detail-box">
+                    <ul>
+                      <li>
+                        <span class="lbl">
+                          <div class="d-flex">
+                            <div style="width: 150px; font-weight: 600;">Booth Type</div>
+                            <div style="width: 150px; font-weight: 600;">Booth No</div>
+                          </div>
+                        </span>
+                        <span class="value" style="font-weight: 600;">Price</span>
+                      </li>
+                      <ng-container *ngFor="let content of boothDetails">
+                        <li>
+                          <span class="lbl">
+                            <div class="d-flex">
+                              <div style="width: 150px">{{ content.booth.boothCategory.title }}</div>
+                              <div style="width: 150px">{{ content.booth.boothNo }}</div>
+                            </div>
+                          </span>
+                          <span class="value">${{ content.booth.boothCategory.price | number }}</span>
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="advertisement-section" *ngIf="advertisementDetails && advertisementDetails.length">
+                <h4 class="card-title mt-4">ADVERTISEMENT</h4>
+                <div class="br-detail-box">
+                  <ul>
+                    <ng-container *ngFor="let content of advertisementDetails">
+                      <li>
+                        <span class="lbl">
+                          <small>{{ content.advertisement.advertisementCategory.title }}</small><br>
+                          <small class="text-muted" [innerHTML]="content.advertisement.title"></small>
+                        </span>
+                        <span class="value w-25 text-right">${{ content.advertisement.price | number
+                          }}</span>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </div>
+              </div> -->
+              <!-- <div class="payment-section p-0">
+                <h4 class="card-title mt-4">PAYMENT SUMMARY</h4>
+                <div class="br-detail-box">
+                  <ul>
+                    <li>
+                      <span class="lbl">Booth Charges</span>
+                      <span class="value">${{ boothCharges | number }}</span>
+                    </li>
+                    <li *ngIf="advertisementCharges != 0">
+                      <span class="lbl">Advertisement Charges</span>
+                      <span class="value">${{ advertisementCharges | number }}</span>
+                    </li>
+                    <li>
+                      <span class="lbl"><strong>Total</strong></span>
+                      <span class="value"><strong>${{ boothCharges + advertisementCharges | number }}</strong></span>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+
+              <p class="mt-4 pt-3"><strong><span style="text-transform: uppercase;">For any
+                    question contact:</span>
+                  <a href="mailto:akhan@isna.net"> akhan@isna.net</a></strong></p>
+
+              <h4 class="card-title mt-4 pt-3">Exhibitor Move-In:</h4>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td style="width: 150px">Thursday</td>
+                    <td style="width: 250px">August 29, 2024</td>
+                    <td>11:00 AM - 04:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Friday</td>
+                    <td>August 30, 2024</td>
+                    <td>08:00 AM - 12:00 PM</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h4 class="card-title  mt-4 pt-3">Show Hours:</h4>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td style="width: 150px">Friday</td>
+                    <td style="width: 250px">August 30, 2024</td>
+                    <td>03:00 PM - 10:30 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Saturday</td>
+                    <td>August 31, 2024</td>
+                    <td>08:30 AM - 10:30 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Sunday</td>
+                    <td>September 1, 2024</td>
+                    <td>08:30 AM - 10:30 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Monday</td>
+                    <td>September 2, 2024</td>
+                    <td>08:30 AM - 01:00 PM</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h4 class="card-title mt-4 pt-3">Exhibitor Move-Out:</h4>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td style="width: 150px">Monday</td>
+                    <td style="width: 250px">September 2, 2024</td>
+                    <td>01:00 PM - 6:00 PM</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

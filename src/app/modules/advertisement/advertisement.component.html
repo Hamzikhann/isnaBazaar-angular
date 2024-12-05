@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="page-title">
+    <h3>Sponsorship and Advertisements</h3>
+    <p>
+      Thousands of attendees from all over the country and overseas will join us at the 61st Annual ISNA Convention in
+      Dallas, TX.<br>We believe that the following advertising avenues during this event will help you publicize your
+      products and/ or services.
+    </p>
+    <p style="font-weight: 900; font-size: 22px;" class="text-danger"><strong>For Pricing and Details contact <a
+          href="mailto:akhan@isna.net">akhan@isna.net</a></strong></p>
+  </div>
+</div>
+<div class="container">
+  <ng-container *ngIf="loading">
+    <div class="text-center">
+      <img src="/assets/images/loading.gif" width="75" />
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!loading">
+    <div class="card card-package" *ngFor="let category of advertisements; let advertisementIndex = index">
+      <div class="card-head">
+        <p>{{ category.title }}</p>
+      </div>
+      <div class="pakage-item" *ngFor="let content of category.advertisements; let id = index">
+        <div class="form-check d-flex justify-content-between p-0 m-0">
+          <!-- <input class="form-check-input" type="radio" [name]="'advertisement' + advertisementIndex"
+            [value]="content.id" [id]="'advertisement' + advertisementIndex + id" [checked]="content.selected" (change)="
+              selectedAdvertisements(category.id, category.title, content)
+            " [checked]="content.checked" /> -->
+          <label class="form-check-label">
+            <div [innerHTML]="content.title"></div>
+            <!-- <span *ngIf="content.price != 0">${{ content.price | number }}</span> -->
+          </label>
+          <a [href]="filesBaseUrl + content.sampleUrl" target="_blank" *ngIf="content.sampleUrl">
+            <button class="button button-sample btn-light" style="width: 80px; margin-left: 12px">view sample</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mt-4 mb-5">
+      <a [routerLink]="['/booth-selection']" class="button-outline-primary button button-icon me-3">
+        Back
+        <img src="/assets/images/welcome/Arrow-primary.svg" alt="" />
+      </a>
+      <a [routerLink]="['/contact']" class="button button-icon button-primary">
+        Continue
+        <img src="/assets/images/welcome/arrow-bg-white.svg" alt="" />
+      </a>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,54 @@
+.grid-container {
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+.grid-item.hold {
+  background-color: rgb(0 0 0 / 40%);
+}
+
+.grid-item.selected {
+  background-color: #eb2838;
+}
+
+.grid-item.color-blue {
+  background-color: #00b0f0;
+}
+.grid-item.color-orange {
+  background-color: #ff9300;
+}
+.grid-item.color-brown {
+  background-color: #966a3a;
+}
+.grid-item.color-purple {
+  background-color: #9747ff;
+}
+.grid-item.color-green {
+  background-color: #00b050;
+}
+#isna-office {
+  position: absolute;
+  left: 304px;
+  top: 38px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.grid-item.management {
+  cursor: not-allowed;
+}
+/*
+.foodcourt {
+  margin: 160px 0;
+  width: 160px;
+}
+.foodcourt img {
+  width: 100%;
+}
+
+.grid-item.management {
+  cursor: not-allowed;
+} */
+
+.grid-item.sponsorship.hold {
+  background-color: #00b0f0;
+}

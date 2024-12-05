@@ -1,0 +1,77 @@
+<div class="container">
+  <ul class="booth-labels" *ngIf="boothCategories.length">
+    <li *ngFor="let boothCategory of boothCategories">
+      <div [class.sponsorship]="boothCategory.color == 'blue'" [class.primea]="boothCategory.color == 'orange'"
+        [class.primeb]="boothCategory.color == 'brown'" [class.primec]="boothCategory.color == 'purple'"
+        [class.management]="boothCategory.color == 'green'"></div>
+      <p>{{ boothCategory.title }}</p>
+      <span>(<span *ngIf="checkPrice(boothCategory.price)">$</span>{{ boothCategory.price }})</span>
+    </li>
+  </ul>
+</div>
+<ng-container *ngIf="loading">
+  <div class="text-center">
+    <img src="/assets/images/loading.gif" width="75" />
+  </div>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <div class="">
+    <div class="grid-container position-relative" *ngIf="boothCategories">
+      <ng-container *ngFor="let row of boothFloatingRow">
+        <ul class="booths-top-left">
+          <ng-container *ngFor="let booth of row">
+            <li [className]="booth.code" [class.selected]="booth.selected" [class.blank]="!booth.boothNo"
+              [class.available]="booth.boothStatus == 'Y'" [class.booked]="booth.boothStatus == 'S'"
+              [class.hold]="booth.boothStatus == 'H'" (click)="checkBoothStatus(booth)">
+              {{ booth.boothNo }}
+            </li>
+          </ng-container>
+        </ul>
+      </ng-container>
+      <div id="arrow-bottom1">
+        <span style="margin-right: 6px;"><strong>Entrance</strong></span>
+        <svg width="53" height="16" viewBox="0 0 53 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M52.7071 8.70711C53.0976 8.31658 53.0976 7.68342 52.7071 7.29289L46.3431 0.928932C45.9526 0.538408 45.3195 0.538408 44.9289 0.928932C44.5384 1.31946 44.5384 1.95262 44.9289 2.34315L50.5858 8L44.9289 13.6569C44.5384 14.0474 44.5384 14.6805 44.9289 15.0711C45.3195 15.4616 45.9526 15.4616 46.3431 15.0711L52.7071 8.70711ZM0 9H52V7H0V9Z"
+            fill="black" />
+        </svg>
+      </div>
+      <div id="arrow-bottom2">
+        <span style="margin-right: 6px;"><strong>Entrance</strong></span>
+        <svg width="53" height="16" viewBox="0 0 53 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M52.7071 8.70711C53.0976 8.31658 53.0976 7.68342 52.7071 7.29289L46.3431 0.928932C45.9526 0.538408 45.3195 0.538408 44.9289 0.928932C44.5384 1.31946 44.5384 1.95262 44.9289 2.34315L50.5858 8L44.9289 13.6569C44.5384 14.0474 44.5384 14.6805 44.9289 15.0711C45.3195 15.4616 45.9526 15.4616 46.3431 15.0711L52.7071 8.70711ZM0 9H52V7H0V9Z"
+            fill="black" />
+        </svg>
+      </div>
+      <div id="isna-office">
+        <strong>ISNA Show Office</strong>
+      </div>
+      <div id="food">
+        <strong>Additional Food Court Seating</strong>
+      </div>
+      <ng-container *ngFor="let row of boothRows">
+        <ng-container *ngFor="let booth of row">
+          <div [className]="'grid-item ' + booth.code" [class.blank]="!booth.boothNo"
+            [class.available]="booth.boothStatus == 'Y'" [class.booked]="booth.boothStatus == 'S'"
+            [class.hold]="booth.boothStatus == 'H'" [class.selected]="booth.selected" (click)="checkBoothStatus(booth)">
+            {{ booth.boothNo }}
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-end mt-4 mb-5">
+      <a [routerLink]="['/bazaar']" class="button-outline-primary button button-icon me-3">
+        Back
+        <img src="/assets/images/welcome/Arrow-primary.svg" alt="" />
+      </a>
+      <button [routerLink]="['/advertisement']" class="btn button button-icon button-primary"
+        [disabled]="boothsSelected.length == 0">
+        Continue
+        <img src="/assets/images/welcome/arrow-bg-white.svg" alt="" />
+      </button>
+    </div>
+  </div>
+</ng-container>

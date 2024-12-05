@@ -1,0 +1,14 @@
+.card .pakage-item .form-check {
+  width: 100%;
+}
+.card .pakage-item .form-check .form-check-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.button-sample {
+  font-size: 10px;
+  font-weight: 400;
+  padding: 4px 8px;
+  text-transform: capitalize;
+}

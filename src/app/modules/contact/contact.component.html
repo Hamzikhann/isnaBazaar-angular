@@ -1,0 +1,141 @@
+<div class="contact">
+  <div class="container">
+    <h4>Personal Information</h4>
+    <div class="form">
+      <div class="row mb-3">
+        <label for="companyName" class="col-sm-2 col-form-label">Company name <span>*</span></label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="companyName" [(ngModel)]="contact.companyName"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="firstName" class="col-sm-2 col-form-label">First Name <span>*</span></label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="firstName" [(ngModel)]="contact.firstName"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="lastName" class="col-sm-2 col-form-label">Last Name <span>*</span></label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="lastName" [(ngModel)]="contact.lastName"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="address" class="col-sm-2 col-form-label">Address <span>*</span></label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="address" [(ngModel)]="contact.address"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="city" class="col-sm-2 col-form-label">City <span>*</span></label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="city" [(ngModel)]="contact.city" (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Country <span>*</span></label>
+        <div class="col-sm-2">
+          <select class="form-control form-select" name="country" [(ngModel)]="contact.country"
+            (change)="updateContactData()">
+            <ng-container *ngFor="let country of countries">
+              <option selected>{{ country }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3" *ngIf="contact.country === 'United States'">
+        <label class="col-sm-2 col-form-label">State <span>*</span></label>
+        <div class="col-sm-3">
+          <select class="form-control form-select" name="state" [(ngModel)]="contact.state"
+            (change)="updateContactData()">
+            <ng-container *ngFor="let state of statesUS">
+              <option>{{ state }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="contact.country === 'Canada'">
+        <label class="col-sm-2 col-form-label">State <span>*</span></label>
+        <div class="col-sm-3">
+          <select class="form-control form-select" name="state" [(ngModel)]="contact.state"
+            (change)="updateContactData()">
+            <ng-container *ngFor="let state of statesCanada">
+              <option>{{ state }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="
+          contact.country !== 'United States' && contact.country !== 'Canada'
+        ">
+        <label class="col-sm-2 col-form-label">State <span>*</span></label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" name="state" [(ngModel)]="contact.state"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="zip" class="col-sm-2 col-form-label">Zip Code</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="zip" [(ngModel)]="contact.zipcode"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="phoneOffice" class="col-sm-2 col-form-label">Phone Office <span>*</span></label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="phoneOffice" [(ngModel)]="contact.phoneOffice"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="phoneHome" class="col-sm-2 col-form-label">Phone Home</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="phoneHome" [(ngModel)]="contact.phoneHome"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="fax" class="col-sm-2 col-form-label">Fax </label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="fax" [(ngModel)]="contact.fax" (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="email" class="col-sm-2 col-form-label">Email <span>*</span></label>
+        <div class="col-sm-4">
+          <input type="email" class="form-control" id="email" [(ngModel)]="contact.email"
+            (change)="updateContactData()" />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Type Of Business <span>*</span></label>
+        <div class="col-sm-4">
+          <select class="form-control form-select" name="businessType" [(ngModel)]="contact.businessType"
+            (change)="updateContactData()">
+            <option>Book & Publications</option>
+            <option>Clothing, Jewelry & Gifts</option>
+            <option>Non-Profit</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mt-4 mb-5">
+        <a [routerLink]="['/advertisement']" class="button-outline-primary button button-icon me-3">
+          Back
+          <img src="/assets/images/welcome/Arrow-primary.svg" alt="" />
+        </a>
+        <button type="submit" class="button button-icon button-primary" (click)="checkContactDetails()">
+          Continue
+          <img src="/assets/images/welcome/arrow-bg-white.svg" alt="" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

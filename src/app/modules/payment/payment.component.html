@@ -1,0 +1,205 @@
+<div class="container">
+  <div class="page-title">
+    <h3>Payment Details</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card border-radius p-4">
+        <h4 class="card-title">Reservation Details</h4>
+        <div class="br-detail-box mb-3">
+          <ul>
+            <li class="head">
+              <span>Booth No</span>
+              <span>Price</span>
+            </li>
+            <ng-container *ngFor="let content of boothDetails">
+              <li>
+                <span class="lbl">{{ content.boothNo }} ({{ content.boothCategory.title }})</span>
+                <span class="value">${{ content.boothCategory.price | number }}</span>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <div class="br-detail-box" *ngIf="advertisementDetails">
+          <ul *ngIf="advertisementDetails.length">
+            <li class="head">
+              <span>Advertisement</span>
+              <span class=" w-25 text-right">Price</span>
+            </li>
+            <ng-container *ngFor="let content of advertisementDetails">
+              <li>
+                <span class="lbl">
+                  <small>{{ content.advertisementCategoryTitle }}</small><br>
+                  <small class="text-muted" [innerHTML]="content.advertisement.title"></small>
+                </span>
+                <span class="value w-25 text-right">${{ content.advertisement.price | number }}</span>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-radius p-4">
+        <div class="card-tittle border-radius">
+          <p>Total</p>
+          <h4>${{ boothCharges + advertisementCharges | number }}</h4>
+        </div>
+
+        <!-- <div class="br-detail-box mb-3">
+          <ul>
+            <li>
+              <span class="lbl">Booth Charges</span>
+              <span class="value">${{ boothCharges | number }}</span>
+            </li>
+            <li *ngIf="advertisementCharges != 0">
+              <span class="lbl">Advertisement Charges</span>
+              <span class="value">${{ advertisementCharges | number }}</span>
+            </li>
+          </ul>
+        </div> -->
+
+        <div class="row g-3" *ngIf="boothCharges > 0 && !contactDetailsErr">
+          <h4 class="card-title my-4">Enter Payment Detail</h4>
+          <form class="checkout-form" #checkoutForm="ngForm">
+
+            <div class="form-group">
+              <label>Card Holder Name</label>
+              <input type="text" class="form-control" [(ngModel)]="cardHolderName" name="cardHolderName"
+                placeholder="Enter name" required />
+            </div>
+            <div class="stripe-card" ngxStripeCardGroup>
+
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <div class="stripe-element">
+                      <label>Card Number</label>
+                      <ngx-stripe-card-number [options]="cardOptions" required></ngx-stripe-card-number>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <div class="stripe-element">
+                      <label>Card Expiry</label>
+                      <ngx-stripe-card-expiry [options]="cardOptions" required></ngx-stripe-card-expiry>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <div class="stripe-element">
+                      <label>Card CVC</label>
+                      <ngx-stripe-card-cvc [options]="cardOptions" required></ngx-stripe-card-cvc>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="!paymentProcessing">
+              <button class="button button-icon button-secondary mt-4 w-100" (click)="checkBooths()"
+                [disabled]="!checkoutForm.form.valid">
+                CONFIRM BOOKING
+                <img src="/assets/images/welcome/arrow-bg-white.svg" />
+              </button>
+            </ng-container>
+            <ng-container *ngIf="paymentProcessing">
+              <div class="alert alert-success">Payment Processing...</div>
+            </ng-container>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="card border-radius p-4">
+    <h4 class="card-title">Convention Details</h4>
+    <div class="convention-detail border-radius mt-4">
+      <div class="row">
+        <div class="col-md-7">
+          <ul class="list-info">
+            <ng-container *ngIf="eventDetails">
+              <li>
+                <span class="lbl">Event Name</span>
+                <span class="value">{{ eventDetails.eventName }}</span>
+              </li>
+              <li>
+                <span class="lbl">Event Address</span>
+                <span class="value">{{ eventDetails.eventAddress }}</span>
+              </li>
+            </ng-container>
+            <ng-container *ngIf="contactDetails">
+              <li>
+                <span class="lbl">Your Name</span>
+                <span class="value">{{
+                  contactDetails.firstName + " " + contactDetails.lastName
+                  }}</span>
+              </li>
+              <li>
+                <span class="lbl">Address</span>
+                <span class="value">{{ contactDetails.address }}</span>
+              </li>
+              <li>
+                <span class="lbl">State</span>
+                <span class="value">{{ contactDetails.state }}</span>
+              </li>
+              <li>
+                <span class="lbl">Country</span>
+                <span class="value">{{ contactDetails.country }}</span>
+              </li>
+              <li>
+                <span class="lbl">Phone Home</span>
+                <span class="value">{{ contactDetails.phoneHome }}</span>
+              </li>
+              <li>
+                <span class="lbl">Company Name</span>
+                <span class="value">{{ contactDetails.companyName }}</span>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <div class="col-md-5">
+          <ul class="list-info">
+            <ng-container *ngIf="eventDetails">
+              <li>
+                <span class="lbl">Event Date:</span>
+                <span class="value">{{ eventDetails.eventStartDate + ' - ' + eventDetails.eventEndDate }}</span>
+              </li>
+            </ng-container>
+            <ng-container *ngIf="contactDetails">
+              <li>
+                <span class="lbl">Email</span>
+                <span class="value">{{ contactDetails.email }}</span>
+              </li>
+              <li>
+                <span class="lbl">City:</span>
+                <span class="value">{{ contactDetails.city }}</span>
+              </li>
+              <li>
+                <span class="lbl">Zip:</span>
+                <span class="value">{{ contactDetails.zipcode }}</span>
+              </li>
+              <li>
+                <span class="lbl">Phone Office</span>
+                <span class="value">{{ contactDetails.phoneOffice }}</span>
+              </li>
+              <li>
+                <span class="lbl">Fax</span>
+                <span class="value">{{ contactDetails.fax }}</span>
+              </li>
+              <li>
+                <span class="lbl">Type Of Business</span>
+                <span class="value">{{ contactDetails.businessType }}</span>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

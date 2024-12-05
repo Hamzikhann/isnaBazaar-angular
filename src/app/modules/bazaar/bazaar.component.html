@@ -1,0 +1,25 @@
+<div class="welcome-card pt-3">
+  <div class="zoom-icons">
+    <div class="icon">
+      <img src="/assets/images/zoom-in.png" (click)="zoomIn()">
+    </div>
+    <div class="icon">
+      <img src="/assets/images/zoom-out.png" (click)="zoomOut()">
+    </div>
+  </div>
+  <pdf-viewer [src]="bazaarPdfSrc" [render-text]="true" [original-size]="false" [zoom]="zoom" style="
+  width: 100%;
+  height: 586px;
+  border: 1px solid #edf0f2;
+"></pdf-viewer>
+</div>
+<div class="d-flex justify-content-end mt-4 mb-5">
+  <a [routerLink]="['/']" class="button-outline-primary button button-icon me-3">
+    Back
+    <img src="/assets/images/welcome/Arrow-primary.svg" alt="" />
+  </a>
+  <a [routerLink]="['/booth-selection']" class="button button-icon button-primary">
+    Continue
+    <img src="/assets/images/welcome/arrow-bg-white.svg" alt="" />
+  </a>
+</div>

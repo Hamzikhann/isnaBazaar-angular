@@ -1,0 +1,18 @@
+.zoom-icons {
+  display: flex;
+  position: relative;
+  top: 46px;
+  z-index: 1;
+  right: -6px;
+}
+.zoom-icons .icon {
+  background: #dedede;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 4px;
+  padding: 2px 4px 4px 4px;
+}
+.zoom-icons .icon img {
+  width: 20px;
+  height: 20px;
+}
